@@ -5,6 +5,7 @@ import Logout from "../views/Logout.vue";
 import Login from "../views/Login.vue";
 import UsersShow from "../views/UsersShow.vue";
 import Workouts from "../views/Workouts.vue";
+import WorkoutsShow from "../views/WorkoutsShow.vue";
 
 const routes = [
   {
@@ -25,6 +26,7 @@ const routes = [
   { path: "/logout", name: "logout", component: Logout },
   { path: "/users/me", name: "UsersShow", component: UsersShow },
   { path: "/workouts/me", name: "Workouts", component: Workouts },
+  { path: "/workouts/me/:id", name: "WorkoutsShow", component: WorkoutsShow },
 ];
 
 const router = createRouter({

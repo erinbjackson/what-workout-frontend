@@ -22,7 +22,7 @@ export default {
   <div class="home">
     <h1>{{ message }}</h1>
     <div v-for="workout in workouts" v-bind:key="workout.id">
-      <router-link v-bind:to="`/workouts/${workout.id}`">
+      <router-link v-bind:to="`/workouts/me/${workout.id}`">
         <h4>Workout: {{ workout.name }}</h4>
       </router-link>
       <p>Muscle Group: {{ workout.muscle_group }}</p>
