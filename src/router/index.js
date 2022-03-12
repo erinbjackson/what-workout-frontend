@@ -6,6 +6,7 @@ import Login from "../views/Login.vue";
 import UsersShow from "../views/UsersShow.vue";
 import Workouts from "../views/Workouts.vue";
 import WorkoutsShow from "../views/WorkoutsShow.vue";
+import Exercises from "../views/Exercises.vue";
 
 const routes = [
   {
@@ -27,6 +28,7 @@ const routes = [
   { path: "/users/me", name: "UsersShow", component: UsersShow },
   { path: "/workouts/me", name: "Workouts", component: Workouts },
   { path: "/workouts/me/:id", name: "WorkoutsShow", component: WorkoutsShow },
+  { path: "/exercises", name: "Exercises", component: Exercises },
 ];
 
 const router = createRouter({

@@ -13,6 +13,7 @@
     <router-link to="/users/me">View Account</router-link>
     |
     <router-link to="/workouts/me">View Workouts</router-link>
+    <router-link to="/exercises">Get Exercises</router-link>
   </div>
   <router-view />
 </template>
