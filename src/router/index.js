@@ -4,9 +4,9 @@ import Signup from "../views/Signup.vue";
 import Logout from "../views/Logout.vue";
 import Login from "../views/Login.vue";
 import UsersShow from "../views/UsersShow.vue";
-import Workouts from "../views/Workouts.vue";
 import WorkoutsShow from "../views/WorkoutsShow.vue";
 import Exercises from "../views/Exercises.vue";
+import Workouts from "../views/Workouts.vue";
 
 const routes = [
   {
@@ -29,6 +29,7 @@ const routes = [
   { path: "/workouts/me", name: "Workouts", component: Workouts },
   { path: "/workouts/me/:id", name: "WorkoutsShow", component: WorkoutsShow },
   { path: "/exercises", name: "Exercises", component: Exercises },
+  { path: "/workouts", name: "Workouts", component: Workouts },
 ];
 
 const router = createRouter({
