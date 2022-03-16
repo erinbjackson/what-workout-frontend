@@ -12,21 +12,13 @@ export default {
       exercise_count: null,
       newWorkoutParams: { exercise_ids: [] },
       show: false,
+      saved: false,
+      visible: true,
       // exercise_ids: [],
       errors: [],
-      isLoggedIn: !!localStorage.jwt,
-      flashMessage: null,
-
-      watch: {
-        $route: function () {
-          this.isLoggedIn = !!localStorage.jwt;
-          this.flashMessage = localStorage.flashMessage;
-        },
-      },
     };
   },
   created: function () {},
-
   methods: {
     getWorkout: function () {
       axios
@@ -41,50 +33,79 @@ export default {
           }
           console.log("workout params", this.newWorkoutParams);
           console.log("here's your exercise IDs", this.exercise_ids);
-          //
         });
+    },
+    workoutCreate: function () {
+      axios
+        .post("/workouts/me", this.newWorkoutParams, this.exericse_ids)
+        .then((response) => {
+          console.log("your workout has been saved", response.data);
+          this.visible = false;
+        })
+
+        .catch((error) => {
+          this.sadStatus = error.response.status;
+          this.errors = error.response.data.errors;
+        });
+    },
+    submitForm() {
+      // Your form submission
+      this.$refs.formSave.reset(); // This will clear that form
     },
   },
 };
 </script>
 
 <template>
-  <div class="exercises">
+  <div class="exercises" id="findWorkout">
     <h3>What do you want to do today?</h3>
-    <form ref="formSave" @submit="submitForm" v-on:submit.prevent="getWorkout">
+    <form v-on:submit.prevent="getWorkout">
       <input type="text" v-model="target" placeholder="Muscle Group" />
+      <v-select :options="muscles" label="Muscle Group"></v-select>
       <br />
-
       <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-
       <br />
       <input v-on:click="show = true" type="submit" value="Get A Workout" />
-      <p v-if="show">If you don't like these exercises, just try again.</p>
+      <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
     </form>
     <br />
     <div v-if="show">
-      <!-- Insert dom event for section below -->
       <h3>{{ message }}</h3>
       Muscle Group: {{ target }}
       <br />
       <br />
       <div v-for="exercise in exercises" v-bind:key="exercise">
-        <br />
         <img v-bind:src="exercise.gifUrl" />
         <br />
         # {{ exercise.id }}
         <br />
         Exercise Name: {{ exercise.name }}
         <br />
+
         Equipment: {{ exercise.equipment }}
         <br />
         Bodypart: {{ exercise.bodyPart }}
         <br />
         Target Muscle: {{ exercise.target }}
       </div>
-      <div v-if="!isLoggedIn" class="signup-link">
-        <h4>Want to save a workout? Sign up for an account and save your workouts</h4>
-        <router-link to="/signup"><button>Create Account</button></router-link>
+      <div class="workout-create">
+        <br />
+        <div v-if="saved">
+          <p>Your workout has been saved.</p>
+          <router-link to="/workouts/me"><button>View All Workouts</button></router-link>
+        </div>
+        <div v-if="visible">
+          <h3>Want to Save This Workout?</h3>
+          <form ref="formSave" @submit="submitForm" v-on:submit.prevent="workoutCreate">
+            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+            <input type="text" v-model="newWorkoutParams.name" placeholder="Name Your Workout" />
+            <br />
+            <input type="text" v-model="newWorkoutParams.muscle_group" placeholder="Muscle Group" />
+            <br />
+            <input v-on:click="saved = true" type="submit" value="Save Workout" />
+            <!-- v-on:click="(saved = true), (visible = false)" -->
+          </form>
+        </div>
       </div>
     </div>
   </div>

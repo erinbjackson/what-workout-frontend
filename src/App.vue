@@ -1,19 +1,36 @@
+<script>
+export default {
+  data: function () {
+    return {
+      isLoggedIn: !!localStorage.jwt,
+      flashMessage: null,
+    };
+  },
+  watch: {
+    $route: function () {
+      this.isLoggedIn = !!localStorage.jwt;
+      this.flashMessage = localStorage.flashMessage;
+    },
+  },
+  methods: {},
+};
+</script>
+
 <template>
   <div id="nav">
     <router-link to="/">Home</router-link>
     |
-    <router-link to="/about">About</router-link>
+    <router-link v-if="!isLoggedIn" to="/signup">Signup</router-link>
     |
-    <router-link to="/signup">Signup</router-link>
+    <router-link v-if="!isLoggedIn" to="/login">Login</router-link>
     |
-    <router-link to="/login">Login</router-link>
+    <router-link v-if="!!isLoggedIn" to="/logout">Logout</router-link>
     |
-    <router-link to="/logout">Logout</router-link>
+    <router-link v-if="!!isLoggedIn" to="/users/me">View Account</router-link>
     |
-    <router-link to="/users/me">View Account</router-link>
+    <router-link v-if="!!isLoggedIn" to="/workouts/me">My Workouts</router-link>
     |
-    <router-link to="/workouts/me">View Workouts</router-link>
-    <router-link to="/exercises">Get Exercises</router-link>
+    <router-link v-if="!!isLoggedIn" to="/workoutcreate">New Workout</router-link>
   </div>
   <router-view />
 </template>

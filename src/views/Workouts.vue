@@ -21,6 +21,7 @@ export default {
 <template>
   <div class="home">
     <h1>{{ message }}</h1>
+    <router-link to="/workoutcreate"><button>Create A Workout</button></router-link>
     <div v-for="workout in workouts" v-bind:key="workout.id">
       <div>
         <h4>

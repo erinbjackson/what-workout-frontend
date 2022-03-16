@@ -6,14 +6,17 @@ export default {
     return {
       message: "Here is your workout! ",
       workout_exercises: {},
+      exercise: {},
       workout: {},
+      show: false,
+      visible: true,
     };
   },
   created: function () {
     console.log(this.$route.params.id);
     axios.get(`/workouts/me/${this.$route.params.id}`).then((response) => {
-      console.log("Here is your workout", response.data.workout_exercises);
-      this.workout_exercises = response.data.workout_exercises;
+      console.log("Here is your workout", response.data);
+      this.exercises = response.data.exercises;
       this.workout = response.data;
     });
   },
@@ -21,7 +24,11 @@ export default {
     workoutsDestroy: function () {
       axios.delete(`workouts/me/${this.$route.params.id}`).then((response) => {
         console.log("Your workout has been deleted", response.data);
-        this.$router.push("/workouts/me");
+        this.show = true;
+        this.visible = false;
+        setTimeout(() => {
+          this.$router.push("/workouts/me");
+        }, 2000);
       });
     },
   },
@@ -39,14 +46,14 @@ export default {
         <br />
         Muscle Group: {{ workout.muscle_group }}
       </p>
-      <div v-for="exercise in workout_exercises" v-bind:key="exercise.id">
-        <b>Exercise Name: {{ exercise.exercise.name }}</b>
+      <div v-for="exercise in exercises" v-bind:key="exercise.id">
+        <b>Exercise Name: {{ exercise.name }}</b>
         <br />
-        Target: {{ exercise.exercise.bodyPart }}
+        Target: {{ exercise.bodyPart }}
         <br />
-        Equipment Needed: {{ exercise.exercise.equipment }}
+        Equipment Needed: {{ exercise.equipment }}
         <br />
-        <img v-bind:src="exercise.exercise.gifUrl" width="200" />
+        <img v-bind:src="exercise.gifUrl" width="200" />
 
         <br />
         <br />
@@ -56,8 +63,11 @@ export default {
       </p> -->
       </div>
       <div>
-        <p>Want to delete this workout?</p>
-        <button v-on:click="workoutsDestroy()">Delete Workout</button>
+        <div v-if="visible">
+          <p>Want to delete this workout?</p>
+          <button v-on:click="workoutsDestroy()">Delete Workout</button>
+        </div>
+        <p v-if="show">Your workout has been deleted.</p>
       </div>
     </div>
   </div>
