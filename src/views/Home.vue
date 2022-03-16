@@ -16,6 +16,27 @@ export default {
       errors: [],
       isLoggedIn: !!localStorage.jwt,
       flashMessage: null,
+      targets: [
+        "abductors",
+        "abs",
+        "adductors",
+        "biceps",
+        "calves",
+        "cardiovascular system",
+        "delts",
+        "forearms",
+        "glutes",
+        "hamstrings",
+        "lats",
+        "levator scapulae",
+        "pectorals",
+        "quads",
+        "serratus anterior",
+        "spine",
+        "traps",
+        "triceps",
+        "upper back",
+      ],
 
       watch: {
         $route: function () {
@@ -50,20 +71,38 @@ export default {
 
 <template>
   <div class="exercises">
-    <h3>What do you want to do today?</h3>
-    <form ref="formSave" @submit="submitForm" v-on:submit.prevent="getWorkout">
-      <input type="text" v-model="target" placeholder="Muscle Group" />
-      <br />
+    <h1>What Workout?</h1>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+      magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+      consequat.
+    </p>
+    <div class="get-workout">
+      <h2>Quick Workout</h2>
+      <p>
+        Just want a quick workout you aren't gonna save? Just enter the muscle group and number of exercises and you can
+        start your workout! Be sure to sign in if you want to have the option to save your workout.
+      </p>
+      <form ref="formSave" @submit="submitForm" v-on:submit.prevent="getWorkout">
+        <label for="target">Choose a Muscle Group</label><br>
+        <select v-model="target">
+          <option v-for="target in targets" v-bind:key="target">
+            {{ target }}
+          </option>
+        </select>
+        <br />
+        <!-- <input type="text" v-model="target" placeholder="Muscle Group" />
+        <br /> -->
 
-      <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
+        <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
 
-      <br />
-      <input v-on:click="show = true" type="submit" value="Get A Workout" />
-      <p v-if="show">If you don't like these exercises, just try again.</p>
-    </form>
+        <br />
+        <input v-on:click="show = true" type="submit" value="Get A Workout" />
+        <p v-if="show">If you don't like these exercises, just try again.</p>
+      </form>
+    </div>
     <br />
     <div v-if="show">
-      <!-- Insert dom event for section below -->
       <h3>{{ message }}</h3>
       Muscle Group: {{ target }}
       <br />

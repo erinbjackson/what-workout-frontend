@@ -14,8 +14,28 @@ export default {
       show: false,
       saved: false,
       visible: true,
-      // exercise_ids: [],
       errors: [],
+      targets: [
+        "abductors",
+        "abs",
+        "adductors",
+        "biceps",
+        "calves",
+        "cardiovascular system",
+        "delts",
+        "forearms",
+        "glutes",
+        "hamstrings",
+        "lats",
+        "levator scapulae",
+        "pectorals",
+        "quads",
+        "serratus anterior",
+        "spine",
+        "traps",
+        "triceps",
+        "upper back",
+      ],
     };
   },
   created: function () {},
@@ -60,8 +80,13 @@ export default {
   <div class="exercises" id="findWorkout">
     <h3>What do you want to do today?</h3>
     <form v-on:submit.prevent="getWorkout">
-      <input type="text" v-model="target" placeholder="Muscle Group" />
-      <v-select :options="muscles" label="Muscle Group"></v-select>
+      <label for="target">Choose a Muscle Group</label>
+      <br />
+      <select v-model="target">
+        <option v-for="target in targets" v-bind:key="target">
+          {{ target }}
+        </option>
+      </select>
       <br />
       <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
       <br />
@@ -103,7 +128,6 @@ export default {
             <input type="text" v-model="newWorkoutParams.muscle_group" placeholder="Muscle Group" />
             <br />
             <input v-on:click="saved = true" type="submit" value="Save Workout" />
-            <!-- v-on:click="(saved = true), (visible = false)" -->
           </form>
         </div>
       </div>
