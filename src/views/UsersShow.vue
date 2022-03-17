@@ -42,6 +42,7 @@ export default {
       <h1>{{ message }}</h1>
       <h4>Username: {{ user.name }}</h4>
       <h4>Email: {{ user.email }}</h4>
+      <router-link to="/workouts/me"><button>View Workouts</button></router-link>
     </div>
     <hr />
     <div class="user-update">
@@ -54,7 +55,7 @@ export default {
         <input type="submit" value="Update" />
       </form>
       <h3>Close An Account</h3>
-      <p>If no longer want to use What Workout? you can use the button below to delete your account.</p>
+      <p>If you no longer want to use What Workout? you can use the button below to delete your account.</p>
       <button v-on:click="destroyUser()">Delete User</button>
     </div>
   </div>
