@@ -7,7 +7,6 @@ import UsersShow from "../views/UsersShow.vue";
 import WorkoutsShow from "../views/WorkoutsShow.vue";
 import Workouts from "../views/Workouts.vue";
 import WorkoutCreate from "../views/WorkoutCreate.vue";
-import Select from "../views/Select.vue";
 
 const routes = [
   {
@@ -22,7 +21,6 @@ const routes = [
   { path: "/workouts/me", name: "Workouts", component: Workouts },
   { path: "/workouts/me/:id", name: "WorkoutsShow", component: WorkoutsShow },
   { path: "/workoutcreate", name: "WorkoutCreate", component: WorkoutCreate },
-  { path: "/Select", name: "Select", component: Select },
 ];
 
 const router = createRouter({
