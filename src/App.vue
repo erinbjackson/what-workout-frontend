@@ -31,6 +31,9 @@ export default {
     <router-link v-if="!!isLoggedIn" to="/workouts/me">My Workouts</router-link>
     |
     <router-link v-if="!!isLoggedIn" to="/workoutcreate">New Workout</router-link>
+    |
+    <router-link v-if="!!isLoggedIn" to="/workoutsort">Exercise Filter</router-link>
+    |
   </div>
   <router-view />
 </template>

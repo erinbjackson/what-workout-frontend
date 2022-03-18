@@ -40,24 +40,25 @@ export default {
   <div class="workout-show">
     <div>
       <h1>{{ message }}</h1>
+      <div>
+        <p>
+          Workout Name: {{ workout.name }}
+          <br />
 
-      <p>
-        Workout Name: {{ workout.name }}
-        <br />
-        Muscle Group: {{ workout.muscle_group }}
-      </p>
-      <div v-for="exercise in exercises" v-bind:key="exercise.id">
-        <b>Exercise Name: {{ exercise.name }}</b>
-        <br />
-        Target: {{ exercise.bodyPart }}
-        <br />
-        Equipment Needed: {{ exercise.equipment }}
-        <br />
-        <img v-bind:src="exercise.gifUrl" width="200" />
+          Muscle Group: {{ workout.muscle_group }}
+        </p>
+        <div v-for="exercise in exercises" v-bind:key="exercise.id">
+          <b>Exercise Name: {{ exercise.name }}</b>
+          <br />
+          Target: {{ exercise.bodyPart }}
+          <br />
+          Equipment Needed: {{ exercise.equipment }}
+          <br />
+          <img v-bind:src="exercise.gifUrl" width="200" />
 
-        <br />
-        <br />
-
+          <br />
+          <br />
+        </div>
         <!-- <p v-for="workout_exercise in workout_exercises" v-bind:key="workout_exercise.id">
         {{ workout_exercise.name }}
       </p> -->
