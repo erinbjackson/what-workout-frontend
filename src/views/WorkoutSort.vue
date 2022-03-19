@@ -1,11 +1,16 @@
 <script>
 import axios from "axios";
+import Multiselect from "vue-multiselect";
 
 export default {
-  components: {},
+  components: {
+    Multiselect,
+  },
   data() {
     return {
       exercises: [],
+      selected: null,
+      options: ["kettle bell", "barbell", "band", "bodyweight", "b", "c"],
     };
   },
   created: function () {
@@ -14,16 +19,7 @@ export default {
       this.exercises = response.data;
     });
   },
-  methods: {
-    addTag(newTag) {
-      const tag = {
-        name: newTag,
-        code: newTag.substring(0, 2) + Math.floor(Math.random() * 10000000),
-      };
-      this.options.push(tag);
-      this.value.push(tag);
-    },
-  },
+  methods: {},
 };
 </script>
 
@@ -31,25 +27,25 @@ export default {
 <template>
   <div>
     <div>
+      <p>Please Choose Some Options:</p>
       <div>
-        <p></p>
-        <div v-for="exercise in exercises" v-bind:key="exercise.id">
-          <b>Exercise Name: {{ exercise.name }}</b>
-          <br />
-          Target: {{ exercise.bodyPart }}
-          <br />
-          Equipment Needed: {{ exercise.equipment }}
-          <br />
-          <img v-bind:src="exercise.gifUrl" width="200" />
-
-          <br />
-          <br />
-        </div>
+        <multiselect v-model="selected" :options="options" :multiple="true"></multiselect>
       </div>
+      These are my: {{ selected }}
+    </div>
+
+    <div v-for="exercise in exercises" v-bind:key="exercise.id">
+      <b>Exercise Name: {{ exercise.name }}</b>
+      <br />
+      Target: {{ exercise.target }}
+      <br />
+      Equipment Needed: {{ exercise.equipment }}
+      <br />
+      <img v-bind:src="exercise.gifUrl" width="200" />
+
+      <br />
+      <br />
     </div>
   </div>
 </template>
-
-<!-- New step!
-     Add Multiselect CSS. Can be added as a static asset or inside a component. -->
-<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
+<!-- <style src="/vue-multiselect/dist/vue-multiselect.min.css"></style> -->
