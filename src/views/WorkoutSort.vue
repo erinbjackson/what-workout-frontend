@@ -10,8 +10,9 @@ export default {
     return {
       show: false,
       exercises: [],
+      final_workouts: {},
       exercise_count: null,
-      equip_arr: "",
+      equip_arr: [],
       equipment: [
         "assisted",
         "band",
@@ -34,7 +35,7 @@ export default {
         "weighted",
         "wheel roller",
       ],
-      targets: "",
+      targets: [],
       targets_list: [
         "abductors",
         "abs",
@@ -58,18 +59,20 @@ export default {
       ],
     };
   },
-  created: function () {
-    axios
-      .get(`/db-exercises`, {
-        params: { targets: this.targets, equip_arr: this.equip_arr, exercise_count: this.exercise_count },
-      })
-      .then((response) => {
-        console.log("here's the big array", response.data);
-        this.exercises = response.data;
-      });
-    // Need to figure out how I'm getting the data from the front end, to the backend and back to the front end. Should be similar to workoutcreate.
+  created: function () {},
+  methods: {
+    getFilteredWorkout: function () {
+      axios
+        .get(`/db-exercises-filter`, {
+          params: { targets: this.targets, equip_arr: this.equip_arr, exercise_count: this.exercise_count },
+        })
+        .then((response) => {
+          this.final_workouts = response.data;
+          console.log("Here is the multifiltered array", this.final_workouts);
+        });
+      // Need to figure out how I'm getting the data from the front end, to the backend and back to the front end. Should be similar to workoutcreate.
+    },
   },
-  methods: {},
 };
 </script>
 
@@ -78,7 +81,7 @@ export default {
   <div>
     <div>
       <p>Choose Your Equipment</p>
-      <form>
+      <form v-on:submit.prevent="getFilteredWorkout">
         <div>
           <multiselect v-model="equip_arr" :options="equipment" :multiple="true"></multiselect>
 
@@ -97,14 +100,14 @@ export default {
       </form>
     </div>
 
-    <div v-for="exercise in exercises" v-bind:key="exercise.id">
-      <b>Exercise Name: {{ exercise.name }}</b>
+    <div v-for="final_workout in final_workouts" v-bind:key="final_workout.id">
+      <b>Exercise Name: {{ final_workout.name }}</b>
       <br />
-      Target: {{ exercise.target }}
+      Target: {{ final_workout.target }}
       <br />
-      Equipment Needed: {{ exercise.equipment }}
+      Equipment Needed: {{ final_workout.equipment }}
       <br />
-      <img v-bind:src="exercise.gifUrl" width="200" />
+      <img v-bind:src="final_workout.gifUrl" width="200" />
 
       <br />
       <br />
