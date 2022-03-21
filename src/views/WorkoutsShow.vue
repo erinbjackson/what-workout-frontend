@@ -10,6 +10,7 @@ export default {
       workout: {},
       show: false,
       visible: true,
+      loadMessage: true,
     };
   },
   created: function () {
@@ -18,6 +19,9 @@ export default {
       console.log("Here is your workout", response.data);
       this.exercises = response.data.exercises;
       this.workout = response.data;
+      setTimeout(() => {
+        this.loadMessage = false;
+      }, 1000);
     });
   },
   methods: {
@@ -43,6 +47,7 @@ export default {
       <div class="center-text padding-b">
         <h3>Workout Name: {{ workout.name }}</h3>
         <h4>Muscle Group: {{ workout.muscle_group }}</h4>
+        <p v-if="loadMessage" class="text-fade">Wait for it...</p>
       </div>
       <div class="row row-cols-1 row-cols-md-3 g-4">
         <div class="col" v-for="exercise in exercises" v-bind:key="exercise.id">
@@ -51,7 +56,7 @@ export default {
             <div class="card-body">
               <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
               <p class="card-text">
-                Target Muscle:{{ exercise.target }}
+                Target Muscle: {{ exercise.target }}
                 <br />
                 Equipment Needed: {{ exercise.equipment }}
               </p>

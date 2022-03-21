@@ -128,50 +128,54 @@ export default {
 </script>
 
 <template>
-  <div class="exercises" id="findWorkout">
-    <h3>What do you want to do today?</h3>
-    You get to choose what you want to base your workout off of:
-    <br />
-    <button v-on:click="(showMuscle = true), (showEquipment = false)">Muscle Group</button>
-    <button v-on:click="(showEquipment = true), (showMuscle = false)">Equipment</button>
+  <div class="container">
+    <div class="container workoutcreate-page padding-t" id="findWorkout">
+      <div class="workoutcreate-page row col5 center-text">
+        <h1>What do you want to do today?</h1>
+        <p class="center-text">You get to choose what you want to base your workout off of:</p>
+        <br />
+        <button v-on:click="(showMuscle = true), (showEquipment = false)">Muscle Group</button>
+        <button v-on:click="(showEquipment = true), (showMuscle = false)">Equipment</button>
 
-    <!-- <h4>Workout based on a muscle group</h4> -->
-    <div v-if="showMuscle" class="muscle-group">
-      <form v-on:submit.prevent="getWorkout">
-        <label for="target">Choose a Muscle Group</label>
+        <!-- <h4>Workout based on a muscle group</h4> -->
+        <div v-if="showMuscle" class="muscle-group">
+          <form v-on:submit.prevent="getWorkout">
+            <label for="target">Choose a Muscle Group</label>
+            <br />
+            <select v-model="target">
+              <option v-for="target in targets" v-bind:key="target">
+                {{ target }}
+              </option>
+            </select>
+            <br />
+            <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
+            <br />
+            <input v-on:click="show = true" type="submit" value="Get A Workout" />
+            <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
+          </form>
+        </div>
+        <!-- <h4>Workout based on the equipment</h4> -->
+        <div v-if="showEquipment" class="equipment">
+          <form v-on:submit.prevent="getEquipmentWorkout">
+            <label for="equipment">Choose Your Equipment</label>
+            <br />
+            <div>* choose "body weight" if you have no equipment</div>
+            <br />
+            <select v-model="equipment">
+              <option v-for="equipment in equipments" v-bind:key="equipment">
+                {{ equipment }}
+              </option>
+            </select>
+            <br />
+            <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
+            <br />
+            <input v-on:click="showequip = true" type="submit" value="Get A Workout" />
+            <p v-if="showequip">If you don't like these exercises, just click "Get A Workout" again.</p>
+          </form>
+        </div>
         <br />
-        <select v-model="target">
-          <option v-for="target in targets" v-bind:key="target">
-            {{ target }}
-          </option>
-        </select>
-        <br />
-        <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-        <br />
-        <input v-on:click="show = true" type="submit" value="Get A Workout" />
-        <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
-      </form>
+      </div>
     </div>
-    <!-- <h4>Workout based on the equipment</h4> -->
-    <div v-if="showEquipment" class="equipment">
-      <form v-on:submit.prevent="getEquipmentWorkout">
-        <label for="equipment">Choose Your Equipment</label>
-        <br />
-        <div>* choose "body weight" if you have no equipment</div>
-        <br />
-        <select v-model="equipment">
-          <option v-for="equipment in equipments" v-bind:key="equipment">
-            {{ equipment }}
-          </option>
-        </select>
-        <br />
-        <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-        <br />
-        <input v-on:click="showequip = true" type="submit" value="Get A Workout" />
-        <p v-if="showequip">If you don't like these exercises, just click "Get A Workout" again.</p>
-      </form>
-    </div>
-    <br />
     <div v-if="show || showequip">
       <h3>{{ message }}</h3>
       Muscle Group: {{ target }}

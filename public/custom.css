@@ -65,6 +65,12 @@ padding: 5px 49px;
 .input-button.wide {
   width: 100%;
 }
+.multisearch-pg {
+  margin: 0 auto 30px;
+  display: flex;
+  justify-content: center;
+
+}
 button a, .input-button {
   color: #fff;
   text-decoration: none;
@@ -107,6 +113,24 @@ section {
 .center-text {
   text-align: center;
 }
+.text-fade {
+  font-size: larger;
+  animation: fadeInAnimation ease 4s;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+@keyframes fadeInAnimation {
+  100% {
+      opacity: 0;
+  }
+  0% {
+      opacity: 1;
+  }
+}
+/* .text-fade {
+  color: rgba(51, 51, 51, 0);
+  transition: color 1s ease;
+} */
 /* Navbar Styles*/
 .navbar {
   padding-top: 0;
@@ -135,7 +159,10 @@ section {
   /* align-content: flex-end; */
   flex-direction: row-reverse !important; */
 }
-
+.container{
+padding-right: var(--bs-gutter-x,1.75rem);
+padding-left: var(--bs-gutter-x,1.75rem);
+}
 /*Footer styles*/
 footer {
   background-color: #484444;
@@ -162,7 +189,17 @@ footer button a:hover {
   font-size: 20px;
   padding: 0 7px;
   color:#fff;
-
+}
+/*Multi Select Search STyles*/
+.multiselect__tag, .multiselect__option--highlight, .multiselect__option--highlight:after {
+  background: #ee8941!important;
+}
+.multiselect__option--highlight:after, .multiselect__tag-icon:hover {
+  background: #d87b38!important;
+}
+.multiselect__option--highlight:after{content:attr(data-select);background:#ee8941;color:#fff}
+.multiselect__tag-icon:after {
+  color: #fff;
 }
 /*Homepage styles*/
 .home-hero {
@@ -244,7 +281,7 @@ a.nav-link.workout.btn:hover {
 
 }
 /*Login page*/
-.container.login-page, .container.signup-page, .container.this-user-show, .container.workouts-index {
+.container.login-page, .container.signup-page, .container.this-user-show, .container.workouts-index, .container.sort-page, .container.workoutcreate-page {
   display: flex;
   justify-content: center;
 }
@@ -255,6 +292,9 @@ a.nav-link.workout.btn:hover {
 .myuserspage, .index-list {
   justify-content: center;
   text-align: center;
+}
+.multiselect {
+  width: 100%!important;
 }
 form ul {
   padding-left: 0;

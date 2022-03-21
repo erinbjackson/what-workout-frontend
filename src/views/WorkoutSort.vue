@@ -11,17 +11,17 @@ export default {
       show: false,
       exercises: [],
       final_workouts: {},
+      no_match: false,
       exercise_count: null,
       equip_arr: [],
       equipment: [
         "assisted",
         "band",
         "barbell",
-        "dumbbell",
-        "cable",
-        "bosu ball",
         "body weight",
-        "barbell",
+        "bosu ball",
+        "cable",
+        "dumbbell",
         "ez barbell",
         "kettlebell",
         "leverage machine",
@@ -48,10 +48,8 @@ export default {
         "glutes",
         "hamstrings",
         "lats",
-        "levator scapulae",
         "pectorals",
         "quads",
-        "serratus anterior",
         "spine",
         "traps",
         "triceps",
@@ -68,6 +66,12 @@ export default {
         })
         .then((response) => {
           this.final_workouts = response.data;
+          if (this.final_workouts.length != 0) {
+            this.no_match = false;
+            this.show = true;
+          } else {
+            this.no_match = true;
+          }
           console.log("Here is the multifiltered array", this.final_workouts);
         });
       // Need to figure out how I'm getting the data from the front end, to the backend and back to the front end. Should be similar to workoutcreate.
@@ -78,39 +82,55 @@ export default {
 
 <!-- Vue component -->
 <template>
-  <div>
-    <div>
-      <p>Choose Your Equipment</p>
-      <form v-on:submit.prevent="getFilteredWorkout">
-        <div>
-          <multiselect v-model="equip_arr" :options="equipment" :multiple="true"></multiselect>
+  <div class="container">
+    <div class="container sort-page padding-t">
+      <div class="sort-page row col-5">
+        <h1>Milti-Sort Workout</h1>
+        <p class="center-text">
+          Choose the muscles you want to target, the equipment you have on hand, number of exercises, and hit "Get
+          Workout"!
+        </p>
+        <form v-on:submit.prevent="getFilteredWorkout">
+          <div>
+            <p>Choose Your Muscle Group</p>
+            <multiselect v-model="targets" :options="targets_list" :multiple="true"></multiselect>
+          </div>
+          <br />
 
-          This is my equip_arr: {{ equip_arr }}
-        </div>
-        <br />
-        <div>
-          <p>Choose Your Muscle Group</p>
-          <multiselect v-model="targets" :options="targets_list" :multiple="true"></multiselect>
-          These are my targets array: {{ targets }}
-        </div>
-        <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-        <br />
-        <input v-on:click="show = true" type="submit" value="Get A Workout" />
-        <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
-      </form>
+          <div>
+            <p>Choose Your Equipment</p>
+            <multiselect v-model="equip_arr" :options="equipment" :multiple="true"></multiselect>
+          </div>
+          <br />
+          <p>Number of Exercises</p>
+          <input type="integer" class="form-control" v-model="exercise_count" />
+          <br />
+          <div class="center-text">
+            <input class="input-button multisearch-pg" type="submit" value="Get A Workout" />
+          </div>
+          <p class="center-text padding-b" v-if="show">
+            If you don't like these exercises, just click "Get A Workout" again for a new set of exercises.
+          </p>
+          <p class="center-text padding-b" v-if="no_match">
+            There are no exercises that match your muscle / equipment choices. Please change or add more options
+          </p>
+        </form>
+      </div>
     </div>
-
-    <div v-for="final_workout in final_workouts" v-bind:key="final_workout.id">
-      <b>Exercise Name: {{ final_workout.name }}</b>
-      <br />
-      Target: {{ final_workout.target }}
-      <br />
-      Equipment Needed: {{ final_workout.equipment }}
-      <br />
-      <img v-bind:src="final_workout.gifUrl" width="200" />
-
-      <br />
-      <br />
+    <div class="row row-cols-1 row-cols-md-3 g-4 padding-b">
+      <div class="col" v-for="final_workout in final_workouts" v-bind:key="final_workout.id">
+        <div class="card h-100">
+          <img v-bind:src="final_workout.gifUrl" class="exercise-gif" width="200" />
+          <div class="card-body">
+            <h5 class="card-title">Exercise Name: {{ final_workout.name }}</h5>
+            <p class="card-text">
+              Target: {{ final_workout.target }}
+              <br />
+              Equipment Needed: {{ final_workout.equipment }}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
