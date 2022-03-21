@@ -37,29 +37,30 @@ export default {
 </script>
 
 <template>
-  <div class="workout-show">
+  <div class="workout-show container padding-t">
     <h1>{{ message }}</h1>
     <div>
-      <p>
-        Workout Name: {{ workout.name }}
-        <br />
-
-        Muscle Group: {{ workout.muscle_group }}
-      </p>
-      <div v-for="exercise in exercises" v-bind:key="exercise.id">
-        <b>Exercise Name: {{ exercise.name }}</b>
-        <br />
-        Target: {{ exercise.bodyPart }}
-        <br />
-        Equipment Needed: {{ exercise.equipment }}
-        <br />
-        <img v-bind:src="exercise.gifUrl" width="200" />
-
-        <br />
-        <br />
+      <div class="center-text padding-b">
+        <h3>Workout Name: {{ workout.name }}</h3>
+        <h4>Muscle Group: {{ workout.muscle_group }}</h4>
+      </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4">
+        <div class="col" v-for="exercise in exercises" v-bind:key="exercise.id">
+          <div class="card h-100">
+            <img class="exercise-gif" v-bind:src="exercise.gifUrl" width="200" />
+            <div class="card-body">
+              <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
+              <p class="card-text">
+                Target Muscle:{{ exercise.target }}
+                <br />
+                Equipment Needed: {{ exercise.equipment }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div>
+    <div class="delete-workout padding-t-b">
       <div v-if="visible">
         <p>Want to delete this workout?</p>
         <button v-on:click="workoutsDestroy()">Delete Workout</button>

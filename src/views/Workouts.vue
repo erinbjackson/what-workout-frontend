@@ -19,16 +19,20 @@ export default {
 </script>
 
 <template>
-  <div class="home">
-    <h1>{{ message }}</h1>
-    <router-link to="/workoutcreate"><button>Create A Workout</button></router-link>
-    <div v-for="workout in workouts" v-bind:key="workout.id">
-      <div>
-        <h4>
-          <router-link v-bind:to="`/workouts/me/${workout.id}`">Workout: {{ workout.name }}</router-link>
-        </h4>
+  <div class="container workouts-index">
+    <div class="index-list padding-t">
+      <h1>{{ message }}</h1>
+      <section>
+        <router-link to="/workoutcreate"><button>Create A Workout</button></router-link>
+      </section>
+      <div v-for="workout in workouts" v-bind:key="workout.id">
+        <div>
+          <h4>
+            <router-link v-bind:to="`/workouts/me/${workout.id}`">Workout: {{ workout.name }}</router-link>
+          </h4>
+        </div>
+        <p>Muscle Group: {{ workout.muscle_group }}</p>
       </div>
-      <p>Muscle Group: {{ workout.muscle_group }}</p>
     </div>
   </div>
 </template>

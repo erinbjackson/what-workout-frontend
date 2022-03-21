@@ -68,7 +68,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <div class="exercises">
     <div class="home-hero">
@@ -88,41 +87,33 @@ export default {
             </div>
           </div>
         </div>
-
-        <b-button variant="primary" href="#">More Info</b-button>
       </b-jumbotron>
     </div>
     <div class="container">
-      <div class="container">
+      <section class="padding-t">
         <div class="row align-items-center">
           <div class="col-8 align-items-center">
             <h2>How It Works</h2>
             <p>
               We take the guess work out of what to do for your workout today. Just decide what muscle group you want to
-              target, the number of exercises you want, and hit "Get A Workou". Our database will give you a list of
+              target, the number of exercises you want, and hit "Get A Workout". Our database will give you a list of
               workouts along with a helpful gif to get you started. If you want to be able to save your workouts for
               future use, be sure to make an account.
             </p>
-            <button><router-link to="/signup">Sign Up</router-link></button>
           </div>
         </div>
-      </div>
-      <!-- <b-container class="bv-example-row">
-        <b-row class="justify-content-md-center">
-          <b-col cols="8" md="auto">
-            <h1>How It Works</h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
-              dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-              ea commodo consequat.
-            </p>
-          </b-col>
-        </b-row>
-      </b-container> -->
-      <div class="container">
+      </section>
+      <section>
+        <div class="cta-bar">
+          <button><router-link to="/login">Login</router-link></button>
+          <button class="rm-on-mobile"><a href="#get-started">Quick Workout</a></button>
+          <button><router-link to="/signup">Sign Up</router-link></button>
+        </div>
+      </section>
+      <section>
         <div class="row center">
           <div class="col-4">
-            <div class="get-workout" id="get-started">
+            <div class="get-workout center-mobile" id="get-started">
               <h3>Quick Workout</h3>
               <p>
                 Just want a quick workout you aren't gonna save? Just enter the muscle group and number of exercises and
@@ -130,9 +121,9 @@ export default {
               </p>
             </div>
           </div>
-          <div class="col-4 float-right">
+          <div class="col-3 float-right center-mobile">
             <form class="workout-form" ref="formSave" @submit="submitForm" v-on:submit.prevent="getWorkout">
-              <label for="target"><h3>Choose a Muscle Group</h3></label>
+              <label for="target"><h4>Choose a Muscle Group</h4></label>
               <br />
               <select v-model="target">
                 <option v-for="target in targets" v-bind:key="target">
@@ -140,11 +131,7 @@ export default {
                 </option>
               </select>
               <br />
-              <!-- <input type="text" v-model="target" placeholder="Muscle Group" />
-        <br /> -->
-
               <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-
               <br />
               <input v-on:click="show = true" type="submit" value="Get A Workout" class="input-button" />
               <p v-if="show" class="small-text center-text">
@@ -155,61 +142,47 @@ export default {
             </form>
           </div>
         </div>
-      </div>
+      </section>
 
       <br />
-      <div class="center-text">
-        <h3>{{ message }}</h3>
-        <h4>Muscle Group: {{ target }}</h4>
-      </div>
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card" v-for="exercise in exercises" v-bind:key="exercise">
-            <img class="card-img-top" v-bind:src="exercise.gifUrl" />
-            <div class="card-body">
-              <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
-              <p class="card-text">
-                # {{ exercise.id }}
-                <br />
-                Equipment: {{ exercise.equipment }}
-                <br />
-                Bodypart: {{ exercise.bodyPart }}
-                <br />
-                Target Muscle:
-                {{ exercise.target }}
-              </p>
+      <div v-if="show">
+        <div class="center-text padding-b">
+          <h3>{{ message }}</h3>
+          <h4>Muscle Group: {{ target }}</h4>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          <div class="col" v-for="exercise in exercises" v-bind:key="exercise">
+            <div class="card h-100">
+              <img class="card-img-top" v-bind:src="exercise.gifUrl" />
+              <div class="card-body">
+                <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
+                <p class="card-text">
+                  Equipment: {{ exercise.equipment }}
+                  <br />
+                  Bodypart: {{ exercise.bodyPart }}
+                  <br />
+                  Target Muscle:
+                  {{ exercise.target }}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-        <div v-if="!isLoggedIn" class="signup-link">
-          <h4>Want to save a workout? Sign up for an account and save your workouts</h4>
-          <router-link to="/signup"><button>Create Account</button></router-link>
+        <div v-if="!isLoggedIn" class="signup-link align-items-center padding-t-b">
+          <h4>Want to save a workout?</h4>
+          <p>Sign up for an account and save your workouts.</p>
+          <button><router-link to="/signup">Create Account</router-link></button>
+        </div>
+        <div class="padding-t-b center-text other-ops" v-if="!!isLoggedIn">
+          <p>
+            Want a different workout?
+            <br />
+            Try some other options:
+          </p>
+          <button><router-link to="/workoutsort">Multi Sort</router-link></button>
+          <button><router-link to="/workoutcreate">Equipment Sort</router-link></button>
         </div>
       </div>
-
-      <!-- <div v-if="show">
-        Muscle Group: {{ target }}
-        <br />
-        <br />
-        <div v-for="exercise in exercises" v-bind:key="exercise">
-          <br />
-          <img class="card-img-top" v-bind:src="exercise.gifUrl" />
-          <br />
-          # {{ exercise.id }}
-          <br />
-          Exercise Name: {{ exercise.name }}
-          <br />
-          Equipment: {{ exercise.equipment }}
-          <br />
-          Bodypart: {{ exercise.bodyPart }}
-          <br />
-          Target Muscle: {{ exercise.target }}
-        </div> -->
-      <!-- <div v-if="!isLoggedIn" class="signup-link">
-          <h4>Want to save a workout? Sign up for an account and save your workouts</h4>
-          <router-link to="/signup"><button>Create Account</button></router-link>
-        </div> -->
-      <!-- </div> -->
     </div>
   </div>
 </template>

@@ -6,6 +6,7 @@ export default {
     return {
       message: "Welcome User",
       user: {},
+      show: false,
     };
   },
   created: function () {
@@ -29,7 +30,12 @@ export default {
     destroyUser: function () {
       axios.delete(`/users/me`).then((response) => {
         console.log("Account deleted", response.data);
-        this.$router.push("/");
+        this.show = true;
+
+        setTimeout(() => {
+          localStorage.removeItem("jwt");
+          this.$router.push("/");
+        }, 2000);
       });
     },
   },
@@ -37,26 +43,32 @@ export default {
 </script>
 
 <template>
-  <div class="user-show">
-    <div>
-      <h1>{{ message }}</h1>
-      <h4>Username: {{ user.name }}</h4>
-      <h4>Email: {{ user.email }}</h4>
-      <router-link to="/workouts/me"><button>View Workouts</button></router-link>
-    </div>
-    <hr />
-    <div class="user-update">
-      <h3>Edit User Account Info</h3>
-      <form v-on:submit.prevent="updateUser">
-        <input type="text" v-model="user.name" placeholder="Name" />
-        <br />
-        <input type="email" v-model="user.email" placeholder="Email" />
-        <br />
-        <input type="submit" value="Update" />
-      </form>
-      <h3>Close An Account</h3>
-      <p>If you no longer want to use What Workout? you can use the button below to delete your account.</p>
-      <button v-on:click="destroyUser()">Delete User</button>
+  <div class="container this-user-show padding-t">
+    <div class="myuserspage col-4">
+      <div>
+        <h1>{{ message }}</h1>
+        <h4>Username: {{ user.name }}</h4>
+        <h4>Email: {{ user.email }}</h4>
+        <button><router-link to="/workouts/me">View Workouts</router-link></button>
+      </div>
+
+      <hr />
+      <div class="user-update padding-t-b">
+        <h3>Edit User Account Info</h3>
+        <form v-on:submit.prevent="updateUser">
+          <input class="form-control" type="text" v-model="user.name" placeholder="Name" />
+          <br />
+          <input class="form-control" type="email" v-model="user.email" placeholder="Email" />
+          <br />
+          <input class="form-control input-button wide" type="submit" value="Update" />
+        </form>
+
+        <hr />
+        <h3>Close An Account</h3>
+        <p>If you no longer want to use What Workout? you can use the button below to delete your account.</p>
+        <button v-on:click="destroyUser()">Delete User</button>
+        <p v-if="show">Your account has been deleted.</p>
+      </div>
     </div>
   </div>
 </template>
