@@ -74,7 +74,6 @@ export default {
           }
           console.log("Here is the multifiltered array", this.final_workouts);
         });
-      // Need to figure out how I'm getting the data from the front end, to the backend and back to the front end. Should be similar to workoutcreate.
     },
   },
 };
@@ -82,10 +81,28 @@ export default {
 
 <!-- Vue component -->
 <template>
+  <div class="wrapper">
+    <div class="inner-hero workout-sort-hero">
+      <b-jumbotron header="WhatWorkout?" lead="Bootstrap v4 Components for Vue.js 2">
+        <div class="row align-items-center">
+          <div class="col-5">
+            <div class="hero-card">
+              <b-card title="Card Title" tag="article" class="mb-2">
+                <h1>Multi-Sort</h1>
+
+                <!-- <button class="card-content"><a href="#get-started" variant="primary">Get Started</a></button> -->
+              </b-card>
+            </div>
+          </div>
+        </div>
+      </b-jumbotron>
+    </div>
+  </div>
+
   <div class="container">
     <div class="container sort-page padding-t">
       <div class="sort-page row col-5">
-        <h1>Milti-Sort Workout</h1>
+        <h1>Multi-Sort Workout</h1>
         <p class="center-text">
           Choose the muscles you want to target, the equipment you have on hand, number of exercises, and hit "Get
           Workout"!

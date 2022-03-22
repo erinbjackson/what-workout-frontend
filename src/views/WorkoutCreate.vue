@@ -91,6 +91,7 @@ export default {
           console.log("here's your exercise IDs", this.exercise_ids);
         });
     },
+
     getEquipmentWorkout: function () {
       axios
         .get(`/exercises-equipment`, { params: { equipment: this.equipment, exercise_count: this.exercise_count } })
@@ -128,89 +129,131 @@ export default {
 </script>
 
 <template>
+  <div class="wrapper">
+    <div class="inner-hero workout-create-hero">
+      <b-jumbotron header="WhatWorkout?" lead="Bootstrap v4 Components for Vue.js 2">
+        <div class="row align-items-center">
+          <div class="col-5">
+            <div class="hero-card">
+              <b-card title="Card Title" tag="article" class="mb-2">
+                <h1>Create A Workout</h1>
+
+                <!-- <button class="card-content"><a href="#get-started" variant="primary">Get Started</a></button> -->
+              </b-card>
+            </div>
+          </div>
+        </div>
+      </b-jumbotron>
+    </div>
+  </div>
   <div class="container">
-    <div class="container workoutcreate-page padding-t" id="findWorkout">
-      <div class="workoutcreate-page row col5 center-text">
-        <h1>What do you want to do today?</h1>
+    <div class="workoutcreate-page padding-t" id="findWorkout">
+      <div class="row center-text">
+        <h2>What do you want to do today?</h2>
         <p class="center-text">You get to choose what you want to base your workout off of:</p>
         <br />
-        <button v-on:click="(showMuscle = true), (showEquipment = false)">Muscle Group</button>
-        <button v-on:click="(showEquipment = true), (showMuscle = false)">Equipment</button>
+        <div class="row col-12 align-items-center padding-b">
+          <div class="col-2"></div>
+          <div class="col-4 mob-padding-b-s">
+            <button v-on:click="(showMuscle = true), (showEquipment = false)">Muscle Group</button>
+          </div>
+          <div class="col-4">
+            <button v-on:click="(showEquipment = true), (showMuscle = false)">Equipment</button>
+          </div>
+          <div class="col-2"></div>
+        </div>
 
         <!-- <h4>Workout based on a muscle group</h4> -->
-        <div v-if="showMuscle" class="muscle-group">
-          <form v-on:submit.prevent="getWorkout">
-            <label for="target">Choose a Muscle Group</label>
-            <br />
-            <select v-model="target">
-              <option v-for="target in targets" v-bind:key="target">
-                {{ target }}
-              </option>
-            </select>
-            <br />
-            <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-            <br />
-            <input v-on:click="show = true" type="submit" value="Get A Workout" />
-            <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
-          </form>
+        <div class="col-4 workoutcreate">
+          <div v-if="showMuscle" class="muscle-group">
+            <form v-on:submit.prevent="getWorkout">
+              <p>Choose a Muscle Group</p>
+              <select class="form-control" v-model="target">
+                <option v-for="target in targets" v-bind:key="target">
+                  {{ target }}
+                </option>
+              </select>
+
+              <input class="form-control" type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
+
+              <input
+                class="input-button wide"
+                v-on:click="(show = true), (visible = true)"
+                type="submit"
+                value="Get A Workout"
+              />
+              <p v-if="show">If you don't like these exercises, just click "Get A Workout" again.</p>
+            </form>
+          </div>
+          <!-- <h4>Workout based on the equipment</h4> -->
+          <div v-if="showEquipment" class="equipment">
+            <form v-on:submit.prevent="getEquipmentWorkout">
+              <p>
+                Choose Your Equipment
+                <br />
+                <span class="small-text">* choose "body weight" if you have no equipment</span>
+              </p>
+
+              <select class="form-control" v-model="equipment">
+                <option placeholder="equipment" v-for="equipment in equipments" v-bind:key="equipment">
+                  {{ equipment }}
+                </option>
+              </select>
+
+              <input class="form-control" type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
+
+              <input
+                class="input-button wide"
+                v-on:click="(showequip = true), (visible = true)"
+                type="submit"
+                value="Get A Workout"
+              />
+              <p v-if="showequip">If you don't like these exercises, just click "Get A Workout" again.</p>
+            </form>
+          </div>
+          <br />
         </div>
-        <!-- <h4>Workout based on the equipment</h4> -->
-        <div v-if="showEquipment" class="equipment">
-          <form v-on:submit.prevent="getEquipmentWorkout">
-            <label for="equipment">Choose Your Equipment</label>
-            <br />
-            <div>* choose "body weight" if you have no equipment</div>
-            <br />
-            <select v-model="equipment">
-              <option v-for="equipment in equipments" v-bind:key="equipment">
-                {{ equipment }}
-              </option>
-            </select>
-            <br />
-            <input type="integer" v-model="exercise_count" placeholder="Number of Exercises" />
-            <br />
-            <input v-on:click="showequip = true" type="submit" value="Get A Workout" />
-            <p v-if="showequip">If you don't like these exercises, just click "Get A Workout" again.</p>
-          </form>
-        </div>
-        <br />
       </div>
     </div>
-    <div v-if="show || showequip">
+    <!-- ---------WORKOUT CARDS --------- -->
+    <div class="center-text" v-if="show || showequip">
       <h3>{{ message }}</h3>
-      Muscle Group: {{ target }}
+      <p v-if="show">Muscle Group: {{ target }}</p>
       <br />
       <br />
-      <div v-for="exercise in exercises" v-bind:key="exercise">
-        <img v-bind:src="exercise.gifUrl" />
-        <br />
-        # {{ exercise.id }}
-        <br />
-        Exercise Name: {{ exercise.name }}
-        <br />
+      <div class="row row-cols-1 row-cols-md-3 g-4 padding-b">
+        <div class="col" v-for="exercise in exercises" v-bind:key="exercise">
+          <div class="card h-100">
+            <img v-bind:src="exercise.gifUrl" />
+            <div class="card-body">
+              <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
 
-        Equipment: {{ exercise.equipment }}
-        <br />
-        Bodypart: {{ exercise.bodyPart }}
-        <br />
-        Target Muscle: {{ exercise.target }}
+              <p class="card-text">
+                Equipment: {{ exercise.equipment }}
+                <br />
+                Target Muscle: {{ exercise.target }}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="workout-create">
+
+      <div class="col-4 workoutcreate" v-if="visible">
+        <h3>Want to Save This Workout?</h3>
+        <form ref="formSave" @submit="submitForm" v-on:submit.prevent="workoutCreate">
+          <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
+          <input class="form-control" type="text" v-model="newWorkoutParams.name" placeholder="Name Your Workout" />
+          <br />
+          <input class="form-control" type="text" v-model="newWorkoutParams.muscle_group" placeholder="Muscle Group" />
+          <br />
+          <input class="input-button wide" v-on:click="saved = true" type="submit" value="Save Workout" />
+        </form>
+      </div>
+      <div class="workout-create padding-b">
         <br />
         <div v-if="saved">
           <p>Your workout has been saved.</p>
           <router-link to="/workouts/me"><button>View All Workouts</button></router-link>
-        </div>
-        <div v-if="visible">
-          <h3>Want to Save This Workout?</h3>
-          <form ref="formSave" @submit="submitForm" v-on:submit.prevent="workoutCreate">
-            <li v-for="error in errors" v-bind:key="error">{{ error }}</li>
-            <input type="text" v-model="newWorkoutParams.name" placeholder="Name Your Workout" />
-            <br />
-            <input type="text" v-model="newWorkoutParams.muscle_group" placeholder="Muscle Group" />
-            <br />
-            <input v-on:click="saved = true" type="submit" value="Save Workout" />
-          </form>
         </div>
       </div>
     </div>

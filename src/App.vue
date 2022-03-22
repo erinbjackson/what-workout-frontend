@@ -17,33 +17,50 @@ export default {
 </script>
 
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand workout">What Workout?</router-link>
       <button
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <div class="navbar-nav">
-          <router-link v-if="!isLoggedIn" to="/signup" class="nav-link workout" aria-current="page">Signup</router-link>
-          <router-link v-if="!isLoggedIn" to="/login" class="nav-link workout">Login</router-link>
-          <router-link v-if="!!isLoggedIn" to="/logout" class="nav-link workout">Logout</router-link>
-          <router-link v-if="!!isLoggedIn" to="/users/me" class="nav-link workout">View Account</router-link>
-          <router-link v-if="!!isLoggedIn" to="/workouts/me" class="nav-link workout">My Workouts</router-link>
-          <router-link v-if="!!isLoggedIn" to="/workoutcreate" class="nav-link workout">New workout</router-link>
-          <router-link v-if="!!isLoggedIn" to="/workoutsort" class="nav-link workout">Exercise Filter</router-link>
-        </div>
-        <div class="right-nav-item">
-          <router-link to="/workoutsort" class="nav-link workout btn float-end">Quick Workout</router-link>
-        </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link v-if="!isLoggedIn" to="/signup" class="nav-link workout">Signup</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!isLoggedIn" to="/login" class="nav-link workout">Login</router-link>
+          </li>
+
+          <li class="nav-item">
+            <router-link v-if="!!isLoggedIn" to="/workouts/me" class="nav-link workout">My Workouts</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!!isLoggedIn" to="/workoutcreate" class="nav-link workout">New Workout</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!!isLoggedIn" to="/workoutsort" class="nav-link workout">Exercise Filter</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!!isLoggedIn" to="/users/me" class="nav-link workout">Account</router-link>
+          </li>
+          <li class="nav-item">
+            <router-link v-if="!!isLoggedIn" to="/logout" class="nav-link workout">Logout</router-link>
+          </li>
+        </ul>
+        <form class="d-flex">
+          <button class="btn btn-outline-success" type="submit">
+            <a href="/#get-started">Quick Workout</a>
+          </button>
+        </form>
       </div>
     </div>
   </nav>
@@ -52,19 +69,18 @@ export default {
 
   <footer>
     <div class="row align-items-center">
-      <div class="col-3 rm-on-mobile">
-        <button><router-link to="/workouts/me" class="footer-link">My Workouts</router-link></button>
-      </div>
+      <div class="col-3 rm-on-mobile"></div>
       <div class="col-6">
         <h4>- What Workout? -</h4>
+        <div>
+          <a href="https://github.com/erinbjackson" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+          <a href="https://www.linkedin.com/in/erin-jackson-pdx/" target="_blank">
+            <i class="fa fa-brands fa-linkedin"></i>
+          </a>
+          <a href="mailto:erinebjackson@gmail.com" target="_blank"><i class="fa fa-solid fa-envelope"></i></a>
+        </div>
       </div>
-      <div class="col-3">
-        <a href="https://github.com/erinbjackson" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
-        <a href="https://www.linkedin.com/in/erin-jackson-pdx/" target="_blank">
-          <i class="fa fa-brands fa-linkedin"></i>
-        </a>
-        <a href="mailto:erinebjackson@gmail.com" target="_blank"><i class="fa fa-solid fa-envelope"></i></a>
-      </div>
+      <div class="col-3"></div>
     </div>
   </footer>
 </template>

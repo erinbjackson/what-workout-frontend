@@ -48,6 +48,24 @@ export default {
   },
   created: function () {},
 
+  // methods: {
+  //   getWorkout: function () {
+  //     axios
+  //       .get(`/exercises`, { params: { target: this.target, exercise_count: this.exercise_count } })
+  //       .then((response) => {
+  //         console.log("here are some exercises", response.data, this.exercises);
+  //         this.exercises = response.data;
+  //         this.exercise_ids = response.data;
+
+  //         for (let i = 0; i < this.exercises.length; i++) {
+  //           this.newWorkoutParams.exercise_ids.push(this.exercises[i].id);
+  //         }
+  //         console.log("workout params", this.newWorkoutParams);
+  //         console.log("here's your exercise IDs", this.exercise_ids);
+  //         //
+  //       });
+  //   },
+  // },
   methods: {
     getWorkout: function () {
       axios
@@ -55,6 +73,7 @@ export default {
         .then((response) => {
           console.log("here are some exercises", response.data, this.exercises);
           this.exercises = response.data;
+
           this.exercise_ids = response.data;
 
           for (let i = 0; i < this.exercises.length; i++) {
