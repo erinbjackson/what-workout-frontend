@@ -123,6 +123,12 @@ export default {
       // Your form submission
       this.$refs.formSave.reset(); // This will clear that form
     },
+    non_sexist_name: (name) => {
+      var noMale = name.replace("(male)", "");
+      var noFem = noMale.replace("(female)", "");
+      var goodName = noFem.replace("sissy", "lean back");
+      return goodName;
+    },
   },
 };
 </script>
@@ -154,16 +160,20 @@ export default {
         <div class="row col-12 align-items-center padding-b">
           <div class="col-2"></div>
           <div class="col-4 mob-padding-b-s">
-            <button v-on:click="(showMuscle = true), (showEquipment = false)">Muscle Group</button>
+            <button v-on:click="(showMuscle = true), (showEquipment = false)">
+              <a href="#create-form">Muscle Group</a>
+            </button>
           </div>
           <div class="col-4">
-            <button v-on:click="(showEquipment = true), (showMuscle = false)">Equipment</button>
+            <button v-on:click="(showEquipment = true), (showMuscle = false)">
+              <a href="#create-form">Equipment</a>
+            </button>
           </div>
           <div class="col-2"></div>
         </div>
 
         <!-- <h4>Workout based on a muscle group</h4> -->
-        <div class="col-4 workoutcreate">
+        <div class="col-4 workoutcreate" id="create-form">
           <div v-if="showMuscle" class="muscle-group">
             <form v-on:submit.prevent="getWorkout">
               <p>Choose a Muscle Group</p>
@@ -185,7 +195,7 @@ export default {
             </form>
           </div>
           <!-- <h4>Workout based on the equipment</h4> -->
-          <div v-if="showEquipment" class="equipment">
+          <div v-if="showEquipment" class="equipment" id="equip-form">
             <form v-on:submit.prevent="getEquipmentWorkout">
               <p>
                 Choose Your Equipment
@@ -217,7 +227,7 @@ export default {
     <!-- ---------WORKOUT CARDS --------- -->
     <div class="center-text" v-if="show || showequip">
       <h3>{{ message }}</h3>
-      <p v-if="show">Muscle Group: {{ target }}</p>
+      <p v-if="showMuscle">Muscle Group: {{ target }}</p>
       <br />
       <br />
       <div class="row row-cols-1 row-cols-md-3 g-4 padding-b">
@@ -225,7 +235,7 @@ export default {
           <div class="card h-100">
             <img v-bind:src="exercise.gifUrl" />
             <div class="card-body">
-              <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
+              <h5 class="card-title">Exercise Name: {{ non_sexist_name(exercise.name) }}</h5>
 
               <p class="card-text">
                 Equipment: {{ exercise.equipment }}

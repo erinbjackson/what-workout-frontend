@@ -28,15 +28,18 @@ h5,
   font-family: "Black Ops One", sans-serif;
 } */
 h2 {
-  font-size: 3rem;
+  /* font-size: 3rem;
+   */
+   font-size: calc(2.125rem + .9vw)!important;
 }
 h3 {
-  font-size: 2.5rem;
+  font-size: calc(2rem + .9vw)!important;
 }
 h4 {
   font-size: 2rem;
 }
 h1 {
+  font-size: calc(2.325rem + .9vw)!important;
   text-align: center;
 }
 a.nav-link:active {
@@ -427,10 +430,10 @@ font-family: 'Raleway', sans-serif;
 */
 
 @media (min-width: 800px) {
-  .navbar-expand-lg {
+  /* .navbar-expand-lg {
     flex-wrap: nowrap !important;
     justify-content: flex-start !important;
-  }
+  } */
 }
 @media (max-width: 800px) {
   .col-5,
@@ -444,6 +447,9 @@ font-family: 'Raleway', sans-serif;
   .col {
     flex: 1 0 100%;
   }
+  h2 {
+    2.5rem;
+  }
   .workoutcreate-page .col {
     margin-top: 30px;
   }
@@ -455,6 +461,10 @@ font-family: 'Raleway', sans-serif;
   }
   .rm-on-mobile {
     display: none;
+  }
+  b-jumbotron .row > * {
+    padding-left: 0;
+    padding-right: 0;
   }
   footer h4 {
     font-size: 8vw;

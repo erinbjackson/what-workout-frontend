@@ -75,6 +75,12 @@ export default {
           console.log("Here is the multifiltered array", this.final_workouts);
         });
     },
+    non_sexist_name: (name) => {
+      var noMale = name.replace("(male)", "");
+      var noFem = noMale.replace("(female)", "");
+      var goodName = noFem.replace("sissy", "lean back");
+      return goodName;
+    },
   },
 };
 </script>
@@ -139,7 +145,7 @@ export default {
         <div class="card h-100">
           <img v-bind:src="final_workout.gifUrl" class="exercise-gif" width="200" />
           <div class="card-body">
-            <h5 class="card-title">Exercise Name: {{ final_workout.name }}</h5>
+            <h5 class="card-title">Exercise Name: {{ non_sexist_name(final_workout.name) }}</h5>
             <p class="card-text">
               Target: {{ final_workout.target }}
               <br />

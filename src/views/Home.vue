@@ -84,6 +84,12 @@ export default {
           //
         });
     },
+    non_sexist_name: (name) => {
+      var noMale = name.replace("(male)", "");
+      var noFem = noMale.replace("(female)", "");
+      var goodName = noFem.replace("sissy", "lean back");
+      return goodName;
+    },
   },
 };
 </script>
@@ -124,10 +130,10 @@ export default {
           </div>
         </div>
       </section>
-      <section class="other-options gray-fullwidth">
+      <section class="other-options gray-fullwidth rm-on-mobile">
         <div class="row align-items-center">
           <div class="col-7">
-            <h4>Want some other options?</h4>
+            <h3>Want some other options?</h3>
           </div>
           <div class="col-5 left-text">
             <div class="home-check-links">
@@ -222,7 +228,7 @@ export default {
             <div class="card h-100">
               <img class="card-img-top exercise-gif" v-bind:src="exercise.gifUrl" />
               <div class="card-body">
-                <h5 class="card-title">Exercise Name: {{ exercise.name }}</h5>
+                <h5 class="card-title">Exercise Name: {{ non_sexist_name(exercise.name) }}</h5>
                 <p class="card-text">
                   Equipment: {{ exercise.equipment }}
                   <br />

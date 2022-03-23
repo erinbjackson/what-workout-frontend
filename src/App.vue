@@ -15,6 +15,7 @@ export default {
   methods: {},
 };
 </script>
+<script></script>
 
 <template>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
