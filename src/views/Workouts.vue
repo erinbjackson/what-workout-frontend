@@ -44,9 +44,9 @@ export default {
         </section>
         <div v-for="workout in workouts" v-bind:key="workout.id">
           <div>
-            <h4>
-              <router-link v-bind:to="`/workouts/me/${workout.id}`">Workout: {{ workout.name }}</router-link>
-            </h4>
+            <h5>
+              <router-link v-bind:to="`/workouts/me/${workout.id}`">{{ workout.name }}</router-link>
+            </h5>
           </div>
           <p>Muscle Group: {{ workout.muscle_group }}</p>
         </div>

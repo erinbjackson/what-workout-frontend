@@ -19,7 +19,9 @@ export default {
 <template>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-light">
     <div class="container-fluid">
-      <router-link to="/" class="navbar-brand workout">What Workout?</router-link>
+      <router-link to="/" class="navbar-brand workout">
+        <img src="/img/new-white-logo.png" width="150" />
+      </router-link>
       <button
         class="navbar-toggler"
         type="button"
@@ -71,7 +73,8 @@ export default {
     <div class="row align-items-center">
       <div class="col-3 rm-on-mobile"></div>
       <div class="col-6">
-        <h4>- What Workout? -</h4>
+        <img class="footer-logo" src="/img/new-white-logo.png" />
+        <!-- <h4>- What Workout? -</h4> -->
         <div>
           <a href="https://github.com/erinbjackson" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
           <a href="https://www.linkedin.com/in/erin-jackson-pdx/" target="_blank">

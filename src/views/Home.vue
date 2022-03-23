@@ -97,10 +97,12 @@ export default {
               <b-card title="Card Title" tag="article" class="mb-2">
                 <h1>What Workout?</h1>
                 <b-card-text class="card-content">
-                  Take the guess work out of your workout. If it's leg day, we got some leg moves. Need some ab work?
-                  We've got a few hundred exercises. No more thinking about what to do!
+                  <p>
+                    Take the guess work out of your workout. If it's leg day, we got some leg moves. Need some ab work?
+                    We've got a few hundred exercises. No more thinking about what to do!
+                  </p>
                 </b-card-text>
-                <br />
+
                 <button class="card-content"><a href="#get-started" variant="primary">Get Started</a></button>
               </b-card>
             </div>
@@ -114,15 +116,61 @@ export default {
           <div class="col-8 align-items-center">
             <h2>How It Works</h2>
             <p>
-              We take the guess work out of what to do for your workout today. Just decide what muscle group you want to
-              target, the number of exercises you want, and hit "Get A Workout". Our database will give you a list of
-              workouts along with a helpful gif to get you started. If you want to be able to save your workouts for
-              future use, be sure to make an account.
+              Just decide what muscle group you want to target, the number of exercises you want, and hit "Get A
+              Workout". Our database will give you a list of workouts along with a helpful gif to get you started. If
+              you want to be able to save your workouts for future use, be sure to make an account.
             </p>
+            <button><router-link to="/signup">Sign Up</router-link></button>
           </div>
         </div>
       </section>
-      <section>
+      <section class="other-options gray-fullwidth">
+        <div class="row align-items-center">
+          <div class="col-7">
+            <h4>Want some other options?</h4>
+          </div>
+          <div class="col-5 left-text">
+            <div class="home-check-links">
+              <router-link v-if="!!isLoggedIn" to="/workoutcreate">
+                <i class="fa fa-solid fa-check"></i>
+                Sort By Equipment
+              </router-link>
+              <router-link v-if="!isLoggedIn" to="/login">
+                <i class="fa fa-solid fa-check"></i>
+                Sort By Equipment
+              </router-link>
+              <br />
+              <router-link v-if="!!isLoggedIn" v-on:click="showMuscle = true" to="/workoutcreate">
+                <i class="fa fa-solid fa-check"></i>
+                Sort By Muscle
+              </router-link>
+              <router-link v-if="!isLoggedIn" to="/login">
+                <i class="fa fa-solid fa-check"></i>
+                Sort By Muscle
+              </router-link>
+              <br />
+              <router-link v-if="!!isLoggedIn" to="/workouts/me">
+                <i class="fa fa-solid fa-check"></i>
+                Saved Workouts
+              </router-link>
+              <router-link v-if="!isLoggedIn" to="/login">
+                <i class="fa fa-solid fa-check"></i>
+                Saved Workouts
+              </router-link>
+              <br />
+              <router-link v-if="!!isLoggedIn" to="/login">
+                <i class="fa fa-solid fa-check"></i>
+                Multi Sort
+              </router-link>
+              <router-link v-if="!isLoggedIn" to="/login">
+                <i class="fa fa-solid fa-check"></i>
+                Multi Sort
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="cta">
         <div class="cta-bar">
           <button><router-link to="/login">Login</router-link></button>
           <button class="rm-on-mobile"><a href="#get-started">Quick Workout</a></button>
@@ -142,7 +190,7 @@ export default {
           </div>
           <div class="col-3 float-right center-mobile">
             <form class="workout-form" ref="formSave" @submit="submitForm" v-on:submit.prevent="getWorkout">
-              <label for="target"><h4>Choose a Muscle Group</h4></label>
+              <label for="target"><h4 class="center-text">Choose a Muscle Group</h4></label>
               <br />
               <select v-model="target">
                 <option v-for="target in targets" v-bind:key="target">

@@ -1,22 +1,13 @@
 /*--------------------------------------------------------------
 # General
 --------------------------------------------------------------*/
-/*General Styles*/
-/* .container-fluid {
 
-}
-.contain {
-
-} */
 html,
 body {
   height: 100%;
-  /* margin-bottom: 150px; */
 }
 body,
 div.container {
-  /* display: flex;
-  flex-direction: column; */
   min-height: 65vh;
 }
 div#content {
@@ -31,7 +22,11 @@ h5,
 .navbar-brand {
   font-family: "Economica", sans-serif;
   color: #333;
+  text-transform: capitalize;
 }
+/* h1 {
+  font-family: "Black Ops One", sans-serif;
+} */
 h2 {
   font-size: 3rem;
 }
@@ -57,7 +52,8 @@ a.nav-link:active {
 template {
 }
 template,
-p {
+p,
+a {
   font-family: "Montserrat", sans-serif;
   color: #333;
 }
@@ -144,6 +140,9 @@ section {
 .center-text {
   text-align: center;
 }
+.left-text {
+  text-align: left;
+}
 .text-fade {
   font-size: larger;
   animation: fadeInAnimation ease 4s;
@@ -163,7 +162,8 @@ section {
   padding-top: 0;
 }
 .navbar-dark.bg-light {
-  background-image: url("img/background-header.jpg");
+  /* background-image: url("img/background-header.jpg"); */
+  background-color: #0c0c0c !important;
   background-size: contain;
 }
 .navbar-dark .navbar-nav .nav-link {
@@ -242,6 +242,9 @@ footer button a {
 footer button a:hover {
   color: #484444c2;
 }
+footer img.footer-logo {
+  max-width: 250px;
+}
 .fa {
   font-size: 27px;
   padding: 15px 7px 0;
@@ -297,6 +300,19 @@ b-jumbotron .row > * {
   padding: 30px;
   background-color: #ffffffa1;
 }
+.other-options.gray-fullwidth {
+  margin-top: 40px;
+  padding-top: 40px;
+  background-color: #efefef;
+  margin-top: 40px;
+  width: 100vw;
+  position: relative;
+  left: calc(-50vw + 50%);
+  right: calc(-50vw + 50%);
+}
+.home-check-links a {
+  color: #333;
+}
 .cta-bar {
   width: 100vw;
   position: relative;
@@ -306,6 +322,10 @@ b-jumbotron .row > * {
   padding: 15px 0;
   text-align: center;
 }
+section.cta {
+  padding-top: 0;
+}
+
 .cta-bar button,
 .cta-bar button a {
   background-color: #fff;

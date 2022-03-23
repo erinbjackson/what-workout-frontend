@@ -7,7 +7,6 @@ export default {
       message: "Here's Your Workout",
       exercises: {},
       userParams: {},
-      // params: { target: "" }, I think I can remove this
       target: "",
       equipment: "",
       exercise_count: null,
