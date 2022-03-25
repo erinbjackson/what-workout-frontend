@@ -462,6 +462,9 @@ font-family: 'Raleway', sans-serif;
   .rm-on-mobile {
     display: none;
   }
+  .other-ops button {
+    margin-bottom: 15px;
+  }
   b-jumbotron .row > * {
     padding-left: 0;
     padding-right: 0;
