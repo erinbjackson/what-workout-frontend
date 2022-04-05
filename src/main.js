@@ -15,7 +15,8 @@ import axios from "axios";
 // // // Optionally install the BootstrapVue icon components plugin
 // Vue.use(IconsPlugin);
 
-axios.defaults.baseURL = process.env.NODE_ENV === "development" ? "http://localhost:3000" : "/";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3000" : "https://gimme-a-workout.herokuapp.com";
 
 var jwt = localStorage.getItem("jwt");
 if (jwt) {
