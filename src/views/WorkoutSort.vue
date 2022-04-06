@@ -75,12 +75,12 @@ export default {
           console.log("Here is the multifiltered array", this.final_workouts);
         });
     },
-    // non_sexist_name: (name) => {
-    //   var noMale = name.replace("(male)", "");
-    //   var noFem = noMale.replace("(female)", "");
-    //   var goodName = noFem.replace("sissy", "lean back");
-    //   return goodName;
-    // },
+    non_sexist_name: (name) => {
+      var noMale = name.replace("(male)", "");
+      var noFem = noMale.replace("(female)", "");
+      var goodName = noFem.replace("sissy", "lean back");
+      return goodName;
+    },
   },
 };
 </script>
