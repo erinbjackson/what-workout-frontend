@@ -50,7 +50,7 @@ export default {
             <router-link v-if="!!isLoggedIn" to="/workoutcreate" class="nav-link workout">New Workout</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/workoutsort" class="nav-link workout">Exercise Filter</router-link>
+            <router-link to="/workoutsort" class="nav-link workout">Quick Workout</router-link>
           </li>
           <li class="nav-item">
             <router-link v-if="!!isLoggedIn" to="/users/me" class="nav-link workout">Account</router-link>
@@ -61,7 +61,7 @@ export default {
         </ul>
         <form class="d-flex">
           <button class="btn btn-outline-success" type="submit">
-            <a href="/#get-started">Quick Workout</a>
+            <router-link to="/workoutsort">Quick Workout</router-link>
           </button>
         </form>
       </div>
