@@ -50,7 +50,7 @@ export default {
             <router-link v-if="!!isLoggedIn" to="/workoutcreate" class="nav-link workout">New Workout</router-link>
           </li>
           <li class="nav-item">
-            <router-link v-if="!isLoggedIn" to="/workoutsort" class="nav-link workout">Exercise Filter</router-link>
+            <router-link to="/workoutsort" class="nav-link workout">Exercise Filter</router-link>
           </li>
           <li class="nav-item">
             <router-link v-if="!!isLoggedIn" to="/users/me" class="nav-link workout">Account</router-link>
